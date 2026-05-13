@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sexisme dans le gaming : quand les jeux vidéo excluent les femmes — FRÉQUENCE W</title>
+  <meta name="description" content="49 % des joueur·euses sont des femmes, mais seulement 24 % des héros de jeux leur ressemblent. Enquête sur le sexisme dans le gaming et les pistes pour plus de diversité en 2024." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:        #FAFAFA;
+      --surface:   #FFFFFF;
+      --text:      #1A1A1A;
+      --secondary: #4A4A4A;
+      --tertiary:  #888888;
+      --link:      #0057B8;
+      --accent:    #C8003A;
+      --border:    #E5E5E5;
+      --font-h:    'Playfair Display', Georgia, serif;
+      --font-b:    'Lora', Georgia, serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Masthead */
+    .masthead {
+      background: var(--surface);
+      border-bottom: 2px solid var(--text);
+      padding: 18px 24px;
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-family: var(--font-h);
+      font-weight: 800; font-size: 20px;
+      letter-spacing: -0.02em;
+      color: var(--text); text-decoration: none;
+    }
+    .logo span { color: var(--accent); }
+    .nav { display: flex; gap: 24px; list-style: none; }
+    .nav a {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--secondary); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav a:hover { color: var(--accent); }
+
+    /* Article wrapper */
+    .article-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* Rubrique */
+    .rubrique {
+      display: inline-block;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #fff; background: var(--accent);
+      padding: 3px 10px; border-radius: 999px;
+      text-decoration: none; margin-bottom: 12px;
+    }
+
+    /* Titres */
+    h1 {
+      font-family: var(--font-h);
+      font-size: 34px; font-weight: 800;
+      line-height: 1.15; letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .chapeau {
+      font-size: 17px; font-style: italic;
+      color: var(--secondary); line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Méta-ligne */
+    .meta {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px; gap: 12px; flex-wrap: wrap;
+    }
+    .meta-left { display: flex; align-items: center; gap: 10px; }
+    .avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #800025);
+      color: #fff; font-family: var(--font-h);
+      font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .meta-author { font-size: 13px; font-weight: 600; display: block; }
+    .meta-author a { color: inherit; text-decoration: none; }
+    .meta-dt { font-size: 12px; color: var(--tertiary); }
+    .btn-save {
+      font-size: 12px; font-weight: 500;
+      color: var(--secondary); background: transparent;
+      border: 1px solid var(--border);
+      padding: 5px 14px; border-radius: 999px;
+      cursor: pointer; display: flex; align-items: center; gap: 5px;
+    }
+
+    /* Image hero — ratio 3:2 */
+    .hero-figure { margin-top: 32px; }
+    .hero-figure img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: 7px;
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    figcaption {
+      font-size: 11.5px; font-style: italic;
+      color: var(--tertiary);
+      margin-top: 8px; margin-bottom: 32px; line-height: 1.5;
+    }
+
+    /* Corps */
+    .body { max-width: 660px; }
+    .body p { margin-bottom: 20px; }
+    .body h2 {
+      font-family: var(--font-h);
+      font-size: 24px; font-weight: 700;
+      line-height: 1.25; letter-spacing: -0.01em;
+      margin-top: 48px; margin-bottom: 14px;
+    }
+    .body ul { list-style: none; margin-bottom: 20px; }
+    .body ul li {
+      padding-left: 20px; position: relative;
+      margin-bottom: 10px; color: var(--secondary);
+    }
+    .body ul li::before {
+      content: '—'; position: absolute; left: 0;
+      color: var(--accent); font-weight: 600;
+    }
+    /* Hyperlien textuel dans le corps */
+    .body a {
+      color: var(--link);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 600;
+      transition: color .2s;
+    }
+    .body a:hover { color: var(--accent); }
+
+    /* Pull quote */
+    .pull-quote {
+      font-family: var(--font-h);
+      font-size: 21px; font-style: italic; line-height: 1.45;
+      border-left: 3px solid var(--accent);
+      padding: 4px 0 4px 24px;
+      margin: 40px 0; color: var(--text);
+    }
+
+    /* Hyperlien éditorial (carte) */
+    a.lien-interne {
+      display: flex; align-items: stretch;
+      border: 1.5px solid var(--accent);
+      border-radius: 8px; overflow: hidden;
+      margin: 36px 0; text-decoration: none;
+      background: var(--surface);
+      transition: box-shadow .2s, transform .15s;
+    }
+    a.lien-interne:hover {
+      box-shadow: 0 4px 20px rgba(200,0,58,.13);
+      transform: translateY(-1px);
+    }
+    .li-bar { width: 5px; background: var(--accent); flex-shrink: 0; }
+    .li-body { padding: 14px 18px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+    .li-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .li-titre {
+      font-family: var(--font-h);
+      font-size: 15px; font-weight: 700;
+      color: var(--text); line-height: 1.35;
+    }
+    .li-desc { font-size: 13px; color: var(--secondary); line-height: 1.5; margin-top: 2px; }
+    .li-arrow { align-self: center; padding: 0 18px; font-size: 22px; color: var(--accent); flex-shrink: 0; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px; text-align: center;
+      font-size: 12px; color: var(--tertiary);
+    }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 24px; }
+      .chapeau, .body { font-size: 15px; }
+      .article-wrap { padding: 24px 16px 60px; }
+      .nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="masthead">
+  <a class="logo" href="article1-algorithmes-recrutement.html">FRÉQUENCE <span>W</span></a>
+  <nav><ul class="nav">
+    <li><a href="article1-algorithmes-recrutement.html">Numérique</a></li>
+    <li><a href="article2-sexisme-gaming.html">Société</a></li>
+  </ul></nav>
+</header>
+
+<article>
+<div class="article-wrap">
+
+  <a class="rubrique" href="#">Société</a>
+
+  <h1>Sexisme dans le gaming&nbsp;: quand les jeux vidéo excluent les femmes</h1>
+
+  <p class="chapeau">
+    49&nbsp;% des joueur·euses sont des femmes, mais seulement 24&nbsp;% des héros de jeux leur
+    ressemblent. Enquête sur le sexisme dans le gaming et les pistes pour plus de diversité en 2024.
+  </p>
+
+  <div class="meta">
+    <div class="meta-left">
+      <div class="avatar">RW</div>
+      <div>
+        <span class="meta-author"><a href="#">Rédaction FRÉQUENCE W</a></span>
+        <span class="meta-dt"><time datetime="2024-10-12">12 octobre 2024</time> · 5 min de lecture</span>
+      </div>
+    </div>
+    <button class="btn-save">🔖 Lire plus tard</button>
+  </div>
+
+  <!-- IMAGE HERO — ratio 3:2 — source Pexels (licence gratuite) -->
+  <figure class="hero-figure">
+    <img
+      src="https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      alt="Une femme avec un casque gaming illuminé, concentrée devant son écran"
+    />
+    <figcaption>
+      Deux joueuses avec deux manettes en main — les femmes représentent
+      près de la moitié du public gaming, mais restent sous-représentées dans l'industrie.
+      © Rodnae Productions / Pexels  
+    </figcaption>
+  </figure>
+
+  <div class="body">
+
+    <p>49&nbsp;% des joueur·euses sont des femmes, mais les jeux vidéo semblent encore leur tourner
+    le dos. Des personnages hyper-stéréotypés, du harcèlement en ligne, une sous-représentation
+    dans les studios&nbsp;: le gaming reste un territoire hostile pour la moitié de son public.
+    Ce phénomène n'est pas isolé&nbsp;: comme le révèle notre enquête sur
+    <a href="article1-algorithmes-recrutement.html">les algorithmes de recrutement et leurs biais</a>,
+    les discriminations numériques touchent de nombreux pans de notre société.</p>
+
+    <h2>Un écran, mais deux réalités</h2>
+
+    <p>Les chiffres parlent d'eux-mêmes. Malgré une audience quasi égale, l'industrie reste
+    largement dominée par une vision masculine&nbsp;:</p>
+
+    <ul>
+      <li>Seulement <strong>24&nbsp;% des personnages principaux</strong> sont des femmes (IGDA, 2024).</li>
+      <li><strong>77&nbsp;% des femmes </strong>déclarent avoir subi du <strong>harcèlement dans les jeux en ligne</strong> (IFOP, 2023).</li>
+      <li>Les jeux à héroïne principale représentent <strong>moins de 10&nbsp;% du marché</strong> (NPD Group, 2023).</li>
+      <li>Des titres comme <em>The Last of Us Part II</em> affichent pourtant des performances
+          commerciales solides, suggérant une vraie demande du public.</li>
+    </ul>
+
+    <div class="pull-quote">
+      «&nbsp;Le gaming peut être un espace d'émancipation — à condition de briser les stéréotypes.&nbsp;»
+    </div>
+
+    <!-- CARTE hyperlien vers article 1 -->
+    <a class="lien-interne" href="article1-algorithmes-recrutement.html">
+      <div class="li-bar"></div>
+      <div class="li-body">
+        <span class="li-label">À lire aussi</span>
+        <span class="li-titre">Algorithmes de recrutement&nbsp;: quand l'IA reproduit les inégalités</span>
+        <span class="li-desc">Ce sexisme numérique ne se limite pas aux jeux — les mêmes idéologies
+          s'infiltrent dans les outils de recrutement algorithmique.</span>
+      </div>
+      <span class="li-arrow">→</span>
+    </a>
+
+    <h2>Une industrie qui commence à se transformer</h2>
+
+    <p>Des voix s'élèvent et des initiatives concrètes voient le jour&nbsp;:</p>
+
+    <ul>
+      <li>Le collectif <strong>Women in Games France</strong> regroupe plus de 2&nbsp;000 professionnelles en 2024.</li>
+      <li>Des studios comme <strong>Ubisoft</strong> et <strong>EA</strong> ont lancé des programmes de mentorat pour les femmes.</li>
+      <li><strong>23&nbsp;%</strong> des employé·es des studios sont des femmes en 2024 (IGDA).</li>
+      <li>Twitch a banni <strong>1,5&nbsp;million de comptes</strong> pour harcèlement en 2023.</li>
+    </ul>
+
+    <p>Une chose est sûre&nbsp;: l'industrie ne peut plus ignorer la moitié de son public. La solution
+    passera par plus de femmes dans les studios, des algorithmes moins biaisés et une modération
+    plus stricte des espaces de jeu en ligne.</p>
+
+  </div>
+</div>
+</article>
+
+<footer>
+  <strong>FRÉQUENCE W</strong> — Média indépendant · © 2024 &nbsp;·&nbsp; Exercice 20_O2
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Algorithmes de recrutement : quand l'IA reproduit les inégalités — FRÉQUENCE W</title>
+  <meta name="description" content="Les algorithmes de recrutement sont-ils vraiment objectifs ? Enquête sur les biais sexistes et raciaux des IA, et les solutions pour un recrutement plus équitable." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:        #FAFAFA;
+      --surface:   #FFFFFF;
+      --text:      #1A1A1A;
+      --secondary: #4A4A4A;
+      --tertiary:  #888888;
+      --link:      #0057B8;
+      --accent:    #C8003A;
+      --border:    #E5E5E5;
+      --font-h:    'Playfair Display', Georgia, serif;
+      --font-b:    'Lora', Georgia, serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Masthead */
+    .masthead {
+      background: var(--surface);
+      border-bottom: 2px solid var(--text);
+      padding: 18px 24px;
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-family: var(--font-h);
+      font-weight: 800; font-size: 20px;
+      letter-spacing: -0.02em;
+      color: var(--text); text-decoration: none;
+    }
+    .logo span { color: var(--accent); }
+    .nav { display: flex; gap: 24px; list-style: none; }
+    .nav a {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--secondary); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav a:hover { color: var(--accent); }
+
+    /* Article wrapper */
+    .article-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* Rubrique */
+    .rubrique {
+      display: inline-block;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #fff; background: var(--accent);
+      padding: 3px 10px; border-radius: 999px;
+      text-decoration: none; margin-bottom: 12px;
+    }
+
+    /* Titres */
+    h1 {
+      font-family: var(--font-h);
+      font-size: 34px; font-weight: 800;
+      line-height: 1.15; letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .chapeau {
+      font-size: 17px; font-style: italic;
+      color: var(--secondary); line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Méta-ligne */
+    .meta {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px; gap: 12px; flex-wrap: wrap;
+    }
+    .meta-left { display: flex; align-items: center; gap: 10px; }
+    .avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #800025);
+      color: #fff; font-family: var(--font-h);
+      font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .meta-author { font-size: 13px; font-weight: 600; display: block; }
+    .meta-author a { color: inherit; text-decoration: none; }
+    .meta-dt { font-size: 12px; color: var(--tertiary); }
+    .btn-save {
+      font-size: 12px; font-weight: 500;
+      color: var(--secondary); background: transparent;
+      border: 1px solid var(--border);
+      padding: 5px 14px; border-radius: 999px;
+      cursor: pointer; display: flex; align-items: center; gap: 5px;
+    }
+
+    /* Image hero — ratio 3:2 */
+    .hero-figure { margin-top: 32px; }
+    .hero-figure img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: 7px;
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    figcaption {
+      font-size: 11.5px; font-style: italic;
+      color: var(--tertiary);
+      margin-top: 8px; margin-bottom: 32px; line-height: 1.5;
+    }
+
+    /* Corps */
+    .body { max-width: 660px; }
+    .body p { margin-bottom: 20px; }
+    .body h2 {
+      font-family: var(--font-h);
+      font-size: 24px; font-weight: 700;
+      line-height: 1.25; letter-spacing: -0.01em;
+      margin-top: 48px; margin-bottom: 14px;
+    }
+    .body ul { list-style: none; margin-bottom: 20px; }
+    .body ul li {
+      padding-left: 20px; position: relative;
+      margin-bottom: 10px; color: var(--secondary);
+    }
+    .body ul li::before {
+      content: '—'; position: absolute; left: 0;
+      color: var(--accent); font-weight: 600;
+    }
+    /* Hyperlien textuel dans le corps */
+    .body a {
+      color: var(--link);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 600;
+      transition: color .2s;
+    }
+    .body a:hover { color: var(--accent); }
+
+    /* Pull quote */
+    .pull-quote {
+      font-family: var(--font-h);
+      font-size: 21px; font-style: italic; line-height: 1.45;
+      border-left: 3px solid var(--accent);
+      padding: 4px 0 4px 24px;
+      margin: 40px 0; color: var(--text);
+    }
+
+    /* Hyperlien éditorial (carte) */
+    a.lien-interne {
+      display: flex; align-items: stretch;
+      border: 1.5px solid var(--accent);
+      border-radius: 8px; overflow: hidden;
+      margin: 36px 0; text-decoration: none;
+      background: var(--surface);
+      transition: box-shadow .2s, transform .15s;
+    }
+    a.lien-interne:hover {
+      box-shadow: 0 4px 20px rgba(200,0,58,.13);
+      transform: translateY(-1px);
+    }
+    .li-bar { width: 5px; background: var(--accent); flex-shrink: 0; }
+    .li-body { padding: 14px 18px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+    .li-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .li-titre {
+      font-family: var(--font-h);
+      font-size: 15px; font-weight: 700;
+      color: var(--text); line-height: 1.35;
+    }
+    .li-desc { font-size: 13px; color: var(--secondary); line-height: 1.5; margin-top: 2px; }
+    .li-arrow { align-self: center; padding: 0 18px; font-size: 22px; color: var(--accent); flex-shrink: 0; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px; text-align: center;
+      font-size: 12px; color: var(--tertiary);
+    }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 24px; }
+      .chapeau, .body { font-size: 15px; }
+      .article-wrap { padding: 24px 16px 60px; }
+      .nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="masthead">
+  <a class="logo" href="article1-algorithmes-recrutement.html">FRÉQUENCE <span>W</span></a>
+  <nav><ul class="nav">
+    <li><a href="article1-algorithmes-recrutement.html">Numérique</a></li>
+    <li><a href="article2-sexisme-gaming.html">Société</a></li>
+  </ul></nav>
+</header>
+
+<article>
+<div class="article-wrap">
+
+  <a class="rubrique" href="#">Numérique</a>
+
+  <h1>Algorithmes de recrutement&nbsp;: quand l'IA reproduit les inégalités</h1>
+
+  <p class="chapeau">
+    Les algorithmes de recrutement sont-ils vraiment objectifs&nbsp;? Enquête sur les biais
+    sexistes et raciaux des IA, et les solutions pour un recrutement plus équitable.
+  </p>
+
+  <div class="meta">
+    <div class="meta-left">
+      <div class="avatar">RW</div>
+      <div>
+        <span class="meta-author"><a href="#">Rédaction FRÉQUENCE W</a></span>
+        <span class="meta-dt"><time datetime="2024-10-12">12 octobre 2024</time> · 4 min de lecture</span>
+      </div>
+    </div>
+    <button class="btn-save">🔖 Lire plus tard</button>
+  </div>
+
+  <!-- IMAGE HERO — ratio 3:2 -->
+  <figure class="hero-figure">
+    <img
+      src="pexels-markus-winkler-1430818-30901568.jpg"
+      alt="Lettres de Scrabble formant les mots OpenAI et ChatGPT sur une table en bois"
+    />
+    <figcaption>
+      Les outils d'IA comme ChatGPT sont de plus en plus utilisés dans les processus de recrutement.
+      © Markus Winkler / Pexels — Licence gratuite
+    </figcaption>
+  </figure>
+
+  <div class="body">
+
+    <p>De nos jours, les logiciels de recrutement promettent clarté et efficacité. Pourtant,
+    des chercheurs confirment que les outils d'intelligence artificielle utilisés en RH peuvent
+    reproduire ou même amplifier des discriminations envers les femmes et les minorités
+    ethniques. Ces discriminations algorithmiques ne se limitent pas au monde du travail&nbsp;;
+    comme le montre notre enquête sur
+    <a href="article2-sexisme-gaming.html">le sexisme dans le gaming</a>,
+    les mêmes biais numériques traversent de nombreux secteurs.
+    Comment ces biais s'infiltrent-ils dans les processus d'embauche, et quelles
+    solutions existent pour un recrutement plus juste&nbsp;?</p>
+
+    <h2>Des algorithmes nourris de stéréotypes</h2>
+
+    <p>Des outils comme HireVue ou Pymetrics analysent des milliers de CV en quelques secondes.
+    Pourtant, leurs décisions reflètent souvent les préjugés de leurs concepteurs&nbsp;:</p>
+
+    <ul>
+      <li>Selon le <em>MIT Technology Review</em> (2023), les algorithmes tendent à favoriser
+          les profils masculins pour les postes techniques, même à compétences égales.</li>
+      <li>Des études de l'ISM et l'INED montrent que les CV à consonance maghrébine ou africaine
+          reçoivent jusqu'à <strong>30&nbsp;% de réponses en moins</strong>.</li>
+      <li>Selon le <em>Harvard Business Review</em> (2023), un vocabulaire à connotation
+          masculine réduirait d'environ <strong>15&nbsp;% les candidatures féminines.</strong></li>
+    </ul>
+
+    <div class="pull-quote">
+      «&nbsp;La discrimination algorithmique n'est pas un bug&nbsp;: c'est le reflet fidèle
+      des inégalités déjà présentes dans nos données.&nbsp;»
+    </div>
+
+    <!-- CARTE hyperlien vers article 2 -->
+    <a class="lien-interne" href="article2-sexisme-gaming.html">
+      <div class="li-bar"></div>
+      <div class="li-body">
+        <span class="li-label">À lire aussi</span>
+        <span class="li-titre">Sexisme dans le gaming&nbsp;: quand les jeux vidéo excluent les femmes</span>
+        <span class="li-desc">Ces discriminations ne touchent pas que le monde du travail —
+          les mêmes biais numériques envahissent l'industrie du jeu vidéo.</span>
+      </div>
+      <span class="li-arrow">→</span>
+    </a>
+
+    <h2>Vers des algorithmes plus justes&nbsp;: pistes et solutions</h2>
+
+    <p>Des initiatives émergent pour contrer ces dérives. En France, la CNIL renforce son
+    encadrement des outils d'IA en RH, dans le sillage de l'<em>AI Act</em> européen (2024).
+    Certaines entreprises adoptent également des pratiques innovantes&nbsp;:</p>
+
+    <ul>
+      <li><strong>Le recrutement anonymisé</strong>&nbsp;: suppression du nom, du prénom et de la photo sur les CV.</li>
+      <li><strong>Les audits algorithmiques</strong>&nbsp;: vérification régulière des biais par des organismes indépendants.</li>
+      <li><strong>La formation des équipes RH</strong> aux biais inconscients, de plus en plus intégrée dans les politiques RSE.</li>
+    </ul>
+
+    <p>La régulation ne suffit plus&nbsp;: c'est toute l'idéologie du recrutement qui doit évoluer.
+    Transparence, diversité des équipes tech et implication des syndicats sont les leviers à
+    activer pour un changement durable.</p>
+
+  </div>
+</div>
+</article>
+
+<footer>
+  <strong>FRÉQUENCE W</strong> — Média indépendant · © 2024 &nbsp;·&nbsp; Exercice 20_O2
+</footer>
+
+</body>
+</html>
