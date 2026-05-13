@@ -114,16 +114,33 @@
       cursor: pointer; display: flex; align-items: center; gap: 5px;
     }
 
-    /* Image hero — ratio 3:2 */
-    .hero-figure { margin-top: 32px; }
-    .hero-figure img {
-      width: 100%;
-      aspect-ratio: 3 / 2;
-      object-fit: cover;
-      border-radius: 7px;
-      display: block;
-      max-width: 100%;
-      height: auto;
+    /* Image placeholder */
+    .img-zone {
+      position: relative;
+      width: 100%; aspect-ratio: 16 / 9;
+      border: 2px dashed #BBBBBB;
+      border-radius: 7px; background: #EFEFEF;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      cursor: pointer; margin-top: 32px; overflow: hidden;
+      transition: background .2s, border-color .2s;
+    }
+    .img-zone:hover { background: #E2E2E2; border-color: #999; }
+    .img-zone input[type="file"] {
+      position: absolute; inset: 0;
+      opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .img-zone .ph-icon { font-size: 38px; opacity: 0.4; pointer-events: none; }
+    .img-zone .ph-title {
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: #999; pointer-events: none;
+    }
+    .img-zone .ph-sub { font-size: 11px; color: #BBB; pointer-events: none; }
+    .img-zone img.preview {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; border-radius: 5px; display: none;
     }
     figcaption {
       font-size: 11.5px; font-style: italic;
@@ -149,14 +166,7 @@
       content: '—'; position: absolute; left: 0;
       color: var(--accent); font-weight: 600;
     }
-    /* Hyperlien textuel dans le corps */
-    .body a {
-      color: var(--link);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      font-weight: 600;
-      transition: color .2s;
-    }
+    .body a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; }
     .body a:hover { color: var(--accent); }
 
     /* Pull quote */
@@ -168,7 +178,7 @@
       margin: 40px 0; color: var(--text);
     }
 
-    /* Hyperlien éditorial (carte) */
+    /* Hyperlien éditorial vers l'autre article */
     a.lien-interne {
       display: flex; align-items: stretch;
       border: 1.5px solid var(--accent);
@@ -217,7 +227,7 @@
   <a class="logo" href="index.html">FRÉQUENCE <span>W</span></a>
   <nav><ul class="nav">
     <li><a href="index.html">Numérique</a></li>
-    <li><a href="article2-sexisme-gaming.html">Société</a></li>
+    <li><a href="article2-sexisme-gaming.html" style="color:var(--accent)">Société</a></li>
   </ul></nav>
 </header>
 
@@ -244,27 +254,23 @@
     <button class="btn-save">🔖 Lire plus tard</button>
   </div>
 
-  <!-- IMAGE HERO — ratio 3:2 — source Pexels (licence gratuite) -->
-  <figure class="hero-figure">
-    <img
-      src="https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=1200"
-      alt="Une femme avec un casque gaming illuminé, concentrée devant son écran"
-    />
-    <figcaption>
-      Deux joueuses avec deux manettes en main — les femmes représentent
-      près de la moitié du public gaming, mais restent sous-représentées dans l'industrie.
-      © Rodnae Productions / Pexels  
-    </figcaption>
+  <!-- PLACEHOLDER IMAGE — cliquez pour insérer votre image -->
+  <figure>
+    <div class="img-zone" onclick="document.getElementById('file2').click()">
+      <input type="file" id="file2" accept="image/*" onchange="loadImg('file2','img2',this.parentElement)" />
+      <img class="preview" id="img2" alt="Image hero article 2" />
+      <span class="ph-icon">🖼️</span>
+      <p class="ph-title">Cliquez pour insérer une image</p>
+      <p class="ph-sub">Ratio 16:9 · min 1200 × 675 px · WebP ou JPG</p>
+    </div>
+    <figcaption>[Légende] Description de l'image + crédit. © Nom / Agence</figcaption>
   </figure>
 
   <div class="body">
 
     <p>49&nbsp;% des joueur·euses sont des femmes, mais les jeux vidéo semblent encore leur tourner
     le dos. Des personnages hyper-stéréotypés, du harcèlement en ligne, une sous-représentation
-    dans les studios&nbsp;: le gaming reste un territoire hostile pour la moitié de son public.
-    Ce phénomène n'est pas isolé&nbsp;: comme le révèle notre enquête sur
-    <a href="index.html">les algorithmes de recrutement et leurs biais</a>,
-    les discriminations numériques touchent de nombreux pans de notre société.</p>
+    dans les studios&nbsp;: le gaming reste un territoire hostile pour la moitié de son public.</p>
 
     <h2>Un écran, mais deux réalités</h2>
 
@@ -272,9 +278,9 @@
     largement dominée par une vision masculine&nbsp;:</p>
 
     <ul>
-      <li>Seulement <strong>24&nbsp;% des personnages principaux</strong> sont des femmes (IGDA, 2024).</li>
-      <li><strong>77&nbsp;% des femmes </strong>déclarent avoir subi du <strong>harcèlement dans les jeux en ligne</strong> (IFOP, 2023).</li>
-      <li>Les jeux à héroïne principale représentent <strong>moins de 10&nbsp;% du marché</strong> (NPD Group, 2023).</li>
+      <li>Seulement <strong>24&nbsp;%</strong> des personnages principaux sont des femmes (IGDA, 2024).</li>
+      <li><strong>77&nbsp;%</strong> des femmes déclarent avoir subi du harcèlement en jeu en ligne (IFOP, 2023).</li>
+      <li>Les jeux à héroïne principale représentent <strong>moins de 10&nbsp;%</strong> du marché (NPD Group, 2023).</li>
       <li>Des titres comme <em>The Last of Us Part II</em> affichent pourtant des performances
           commerciales solides, suggérant une vraie demande du public.</li>
     </ul>
@@ -283,7 +289,7 @@
       «&nbsp;Le gaming peut être un espace d'émancipation — à condition de briser les stéréotypes.&nbsp;»
     </div>
 
-    <!-- CARTE hyperlien vers article 1 -->
+    <!-- HYPERLIEN VERS ARTICLE 1 -->
     <a class="lien-interne" href="index.html">
       <div class="li-bar"></div>
       <div class="li-body">
@@ -318,5 +324,19 @@
   <strong>FRÉQUENCE W</strong> — Média indépendant · © 2024 &nbsp;·&nbsp; Exercice 20_O2
 </footer>
 
+<script>
+  function loadImg(fileId, imgId, zone) {
+    const file = document.getElementById(fileId).files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = document.getElementById(imgId);
+      img.src = e.target.result;
+      img.style.display = 'block';
+      zone.querySelectorAll('.ph-icon, .ph-title, .ph-sub').forEach(el => el.style.display = 'none');
+    };
+    reader.readAsDataURL(file);
+  }
+</script>
 </body>
 </html>
