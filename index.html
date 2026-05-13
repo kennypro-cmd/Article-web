@@ -114,16 +114,36 @@
       cursor: pointer; display: flex; align-items: center; gap: 5px;
     }
 
-    /* Image hero — ratio 3:2 */
-    .hero-figure { margin-top: 32px; }
-    .hero-figure img {
-      width: 100%;
-      aspect-ratio: 3 / 2;
-      object-fit: cover;
-      border-radius: 7px;
-      display: block;
-      max-width: 100%;
-      height: auto;
+    /* Image placeholder */
+    .img-zone {
+      position: relative;
+      width: 100%; aspect-ratio: 16 / 9;
+      border: 2px dashed #BBBBBB;
+      border-radius: 7px; background: #EFEFEF;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      cursor: pointer; margin-top: 32px; overflow: hidden;
+      transition: background .2s, border-color .2s;
+    }
+    .img-zone:hover { background: #E2E2E2; border-color: #999; }
+    .img-zone input[type="file"] {
+      position: absolute; inset: 0;
+      opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .img-zone .ph-icon { font-size: 38px; opacity: 0.4; pointer-events: none; }
+    .img-zone .ph-title {
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: #999; pointer-events: none;
+    }
+    .img-zone .ph-sub { font-size: 11px; color: #BBB; pointer-events: none; }
+    .img.preview {
+		width: 100%;
+		height: auto;
+		display: block;
+		border-radius: 8px;
+		object-fit: cover;
+};
     }
     figcaption {
       font-size: 11.5px; font-style: italic;
@@ -149,14 +169,7 @@
       content: '—'; position: absolute; left: 0;
       color: var(--accent); font-weight: 600;
     }
-    /* Hyperlien textuel dans le corps */
-    .body a {
-      color: var(--link);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      font-weight: 600;
-      transition: color .2s;
-    }
+    .body a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; }
     .body a:hover { color: var(--accent); }
 
     /* Pull quote */
@@ -168,7 +181,7 @@
       margin: 40px 0; color: var(--text);
     }
 
-    /* Hyperlien éditorial (carte) */
+    /* Hyperlien éditorial vers l'autre article */
     a.lien-interne {
       display: flex; align-items: stretch;
       border: 1.5px solid var(--accent);
@@ -244,27 +257,25 @@
     <button class="btn-save">🔖 Lire plus tard</button>
   </div>
 
-  <!-- IMAGE HERO — ratio 3:2 -->
-  <figure class="hero-figure">
-    <img
-      src="pexels-markus-winkler-1430818-30901568.jpg"
-      alt="Lettres de Scrabble formant les mots OpenAI et ChatGPT sur une table en bois"
-    />
-    <figcaption>
-      Les outils d'IA comme ChatGPT sont de plus en plus utilisés dans les processus de recrutement.
-      © Markus Winkler / Pexels — Licence gratuite
-    </figcaption>
-  </figure>
+  <!-- PLACEHOLDER IMAGE — cliquez pour insérer votre image -->
+ <figure>
+  <img 
+    src="pexels-markus-winkler-1430818-30901568.jpg" 
+    alt="Image hero article 1" 
+  />
+
+  <figcaption>
+      Les outils d'IA comme ChatGPT sont de plus en plus utilisés dans les processus de recrutement. © Markus Winkler / Pexels — Licence gratuite
+  </figcaption>
+</figure>
 
   <div class="body">
 
     <p>De nos jours, les logiciels de recrutement promettent clarté et efficacité. Pourtant,
     des chercheurs confirment que les outils d'intelligence artificielle utilisés en RH peuvent
-    reproduire ou même amplifier des discriminations envers les femmes et les minorités
-    ethniques. Ces discriminations algorithmiques ne se limitent pas au monde du travail&nbsp;;
-    comme le montre notre enquête sur
-    <a href="article2-sexisme-gaming.html">le sexisme dans le gaming</a>,
-    les mêmes biais numériques traversent de nombreux secteurs.
+    reproduire — voire amplifier — des discriminations envers les femmes et les minorités
+    ethniques. Un phénomène qui, comme le montre notre enquête sur <a href="article2-sexisme-gaming.html">le sexisme dans le gaming</a>,
+    dépasse largement le seul monde du travail.
     Comment ces biais s'infiltrent-ils dans les processus d'embauche, et quelles
     solutions existent pour un recrutement plus juste&nbsp;?</p>
 
@@ -279,7 +290,7 @@
       <li>Des études de l'ISM et l'INED montrent que les CV à consonance maghrébine ou africaine
           reçoivent jusqu'à <strong>30&nbsp;% de réponses en moins</strong>.</li>
       <li>Selon le <em>Harvard Business Review</em> (2023), un vocabulaire à connotation
-          masculine réduirait d'environ <strong>15&nbsp;% les candidatures féminines.</strong></li>
+          masculine réduirait d'environ <strong>15&nbsp;%</strong> les candidatures féminines.</li>
     </ul>
 
     <div class="pull-quote">
@@ -287,7 +298,7 @@
       des inégalités déjà présentes dans nos données.&nbsp;»
     </div>
 
-    <!-- CARTE hyperlien vers article 2 -->
+    <!-- HYPERLIEN VERS ARTICLE 2 -->
     <a class="lien-interne" href="article2-sexisme-gaming.html">
       <div class="li-bar"></div>
       <div class="li-body">
@@ -323,5 +334,19 @@
   <strong>FRÉQUENCE W</strong> — Média indépendant · © 2024 &nbsp;·&nbsp; Exercice 20_O2
 </footer>
 
+<script>
+  function loadImg(fileId, imgId, zone) {
+    const file = document.getElementById(fileId).files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = document.getElementById(imgId);
+      img.src = e.target.result;
+      img.style.display = 'block';
+      zone.querySelectorAll('.ph-icon, .ph-title, .ph-sub').forEach(el => el.style.display = 'none');
+    };
+    reader.readAsDataURL(file);
+  }
+</script>
 </body>
 </html>
